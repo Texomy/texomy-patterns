@@ -1,0 +1,18 @@
+Scale:
+  Thousand: 'thousand'
+  Million: 'million'
+  Billion: 'billion'
+
+Number:
+  Decimal: '\d+(,\d{3})*\.\d+'
+  Integer:
+    $fields:
+      value: Number
+      scale: Scale
+    $patterns:
+      - '\d+(,\d{3})*'
+      - '#{value} #{scale}'
+
+Percent:
+  $fields: { value: Number }
+  $patterns: '#{value}%'

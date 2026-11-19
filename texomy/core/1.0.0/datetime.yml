@@ -1,0 +1,47 @@
+$imports: numbers
+
+Month:
+  JAN: 'January'
+  FEB: 'February'
+  MAR: 'March'
+  APR: 'April'
+  MAY: 'May'
+  JUN: 'June'
+  JUL: 'July'
+  AUG: 'August'
+  SEP: 'September'
+  OCT: 'October'
+  NOV: 'November'
+  DEC: 'December'
+ 
+Date:
+
+  IsoDate:
+    $fields:
+      year: { $type: Integer, $match: '\d{4}' }
+      month: { $type: Integer, $match: '0[1-9]|1[0-2]' }
+      day: { $type: Integer, $match: '0[1-9]|[12]\d|3[01]' }
+    $patterns:
+      - '#{year}-#{month}-#{day}'
+      - '#{month}/#{day}/#{year}'
+      - '#{day}-#{month}-#{year}'
+
+  TextualDate:
+    $fields:
+      year: { $type: Integer, $match: '\d{4}' }
+      month: Month
+      day: { $type: Integer, $match: '[1-9]|[12]\d|3[01]' }
+    $patterns: '#{month} #{day}(st|nd|rd|th)?, #{year}'
+
+TimePeriod:
+  AM: 'AM'
+  PM: 'PM'
+
+Time:
+  $fields:
+    hours: Integer
+    minutes: Integer
+    period: TimePeriod
+  $patterns:
+    - '#{hours}:#{minutes}\s?#{period}'
+    - '#{hours}:#{minutes}'

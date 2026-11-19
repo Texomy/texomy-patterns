@@ -1,0 +1,14 @@
+$imports: numbers
+
+Currency:
+  USD: [ '\$', 'USD', 'US\$' ]
+  EUR: [ '€', 'EUR' ]
+  GBP: [ '£', 'GBP' ]
+
+Money:
+  $fields:
+    currency: Currency
+    amount: Number
+  $patterns:
+    - '#{currency}\s*#{amount}'
+    - '#{amount}\s*#{currency}'
